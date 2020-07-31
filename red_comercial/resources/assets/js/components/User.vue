@@ -142,7 +142,7 @@
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-lg-6">
                                 <label>Contraseña *</label>
-                                <input v-model="password" class="form-control">
+                                <input v-model="password" type="password" class="form-control">
                             </div>
                         </div>
                         <div class="form-row">
@@ -394,7 +394,7 @@
             },
 
             /*ACTIVADO LOGICO*/
-            activarCategoria(id){
+            activarUsuario(id){
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',

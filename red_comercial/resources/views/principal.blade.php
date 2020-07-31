@@ -217,29 +217,33 @@
             </div>
             </li>
             <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle notification-toggle nav-link-lg nav-link-user"><i class="fa fa-user-circle"></i>
-            <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div></a>
+            <div class="d-sm-none d-lg-inline-block">Hola, {{ Auth::user()->nombre }}</div></a>
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in 5 min ago</div>
-                <a href="features-profile.html" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> Profile
+                <a @click="menu=99" href="#" class="dropdown-item has-icon">
+                <i class="far fa-user"></i> Perfil
                 </a>
-                <a href="features-activities.html" class="dropdown-item has-icon">
-                <i class="fas fa-bolt"></i> Activities
+                <a href="{{ url('/shop') }}" class="dropdown-item has-icon">
+                <i class="fas fa-bolt"></i> Ver mi tienda
                 </a>
-                <a href="features-settings.html" class="dropdown-item has-icon">
+                <a href="{{ url('/') }}" class="dropdown-item has-icon">
+                <i class="fas fa-cog"></i> Ver mapa
+                </a>
+                <a href="#" class="dropdown-item has-icon">
                 <i class="fas fa-cog"></i> Settings
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item has-icon text-danger">
+                <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger" 
+                    >
                 <i class="fas fa-sign-out-alt"></i> Logout
                 </a>
             </div>
             </li>
         </ul>
         </nav>
-
+        
         <!-- MENU SIDEBAR-->
-        @include('plantilla.sidebar')
+                @include('plantilla.sidebaradministrador')
         <!-- END MENU SIDEBAR-->
 
         <!-- Main Content -->

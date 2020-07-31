@@ -22,7 +22,6 @@ class UserController extends Controller
             ->select('users.id', 'users.nombre', 'users.apellido_p','users.apellido_m', 'users.telefono',
                     'users.email', 'users.password', 'users.condicion', 'users.idrol', 
                     'tipousuario.rol')
-            ->where('users.idrol', '<>', '4')
             ->orderBy('users.id')->paginate(4);
         }else{
             $users = User::join('tipousuario', 'users.idrol','=', 'tipousuario.id') //TABLA2, TABLA1.IDROL = TABLA2.ID
@@ -30,7 +29,6 @@ class UserController extends Controller
                     'users.email', 'users.password', 'users.condicion', 'users.idrol', 
                     'tipousuario.rol')
             ->where('users.'.$criterio, 'like', '%'. $buscar.'%')
-            ->where('users.idrol', '<>', '4')
             ->orderBy('users.id')->paginate(4);
         }
 
