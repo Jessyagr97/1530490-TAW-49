@@ -13,14 +13,14 @@
             <div class="section-body">
 
                 <h2 class="section-title">Administración del perfil del usuario</h2>
-                <p class="section-lead">Módulo disponible para Administradores y Comerciantes. Agregue y edite información.</p>
+                <p class="section-lead">Módulo disponible para administradores y comerciantes. Agregue y edite información.</p>
                 
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card profile-widget">
-                            <div class="profile-widget-header">
-                                <img alt="image" src="assets/img/avatar/avatar-1.png" class="rounded-circle profile-widget-picture">
-                                <div class="profile-widget-items" v-for="usuario in arrayUsuario" :key="usuario.id">
+                            <div class="profile-widget-header" v-for="usuario in arrayUsuario" :key="usuario.id">
+                                <img alt="profile image" v-bind:src="usuario.image_profile" class="rounded-circle profile-widget-picture">
+                                <div class="profile-widget-items" >
                                     <div class="profile-widget-item">
                                         <div class="profile-widget-item-label">Nombre</div>
                                         <div class="profile-widget-item-value">{{ usuario.nombre }}</div>
@@ -199,6 +199,7 @@
         data (){
             return {
                 idrol: 0,
+                rutaImg: '',
                 usuario_id: 0,
                 nombre : '',
                 apellido_p : '',
@@ -281,7 +282,7 @@
                     
                     me.password = '';
                     me.listarUsuario();   //Volver a enlistar los registros
-                    toastr["success"]("Perfil actualizado con éxito!.");
+                    toastr["success"]("Perfil actualizado con éxito.");
                 })
                 .catch(function (error) {
                     // handle error

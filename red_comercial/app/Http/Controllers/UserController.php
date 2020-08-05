@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Cartera;
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -20,13 +24,13 @@ class UserController extends Controller
         if($buscar==''){
             $users = User::join('tipousuario', 'users.idrol','=', 'tipousuario.id') //TABLA2, TABLA1.IDROL = TABLA2.ID
             ->select('users.id', 'users.nombre', 'users.apellido_p','users.apellido_m', 'users.telefono',
-                    'users.email', 'users.password', 'users.condicion', 'users.idrol', 
+                    'users.email', 'users.password', 'users.image_profile', 'users.condicion', 'users.idrol', 
                     'tipousuario.rol')
             ->orderBy('users.id')->paginate(4);
         }else{
             $users = User::join('tipousuario', 'users.idrol','=', 'tipousuario.id') //TABLA2, TABLA1.IDROL = TABLA2.ID
             ->select('users.id', 'users.nombre', 'users.apellido_p','users.apellido_m', 'users.telefono',
-                    'users.email', 'users.password', 'users.condicion', 'users.idrol', 
+                    'users.email', 'users.password', 'users.image_profile', 'users.condicion', 'users.idrol', 
                     'tipousuario.rol')
             ->where('users.'.$criterio, 'like', '%'. $buscar.'%')
             ->orderBy('users.id')->paginate(4);
@@ -50,6 +54,14 @@ class UserController extends Controller
 
         if(!$request->ajax()) return redirect('/main');
 
+       /*CREAR DIRECTORIO DE USUARIO*/
+       $path = 'public/'.$request->email.'/img/';
+       Storage::makeDirectory($path);
+       
+       $path = 'public/'.$request->email.'/docs/';
+       Storage::makeDirectory($path);
+       /*==============================*/
+
         try{
             //REGISTRO EN LA TABLA USERS
             DB::beginTransaction();
@@ -60,14 +72,15 @@ class UserController extends Controller
             $user->telefono = $request->telefono;
             $user->email = $request->email;
             $user->password = bcrypt($request->password); //ENCRIPTADA
+            $user->image_profile = '';
             $user->condicion = '1';
             $user->idrol = $request->idrol;
             $user->save();
 
-            /*$cartera = new Cartera();
+            $cartera = new Cartera();
             $cartera->iduser = $user->id;
             $cartera->dinero = '0';
-            $cartera->save();*/
+            $cartera->save();
 
             DB::commit();
 
@@ -92,6 +105,7 @@ class UserController extends Controller
             $user->telefono = $request->telefono;
             $user->email = $request->email;
             $user->password = bcrypt($request->password); //ENCRIPTADA
+            $user->image_profile = $request->image_profile;
             $user->condicion = '1';
             $user->idrol = $request->idrol;
             $user->save();

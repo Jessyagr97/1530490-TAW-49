@@ -67,6 +67,11 @@ Route::group(['middleware' => ['auth']], function () {
         /*PERFIL DE USUARIO*/
         Route::get('/perfil', 'PerfilController@index');
 
+        /*ETIQUETAS*/
+        Route::get('/etiqueta', 'EtiquetaController@index');
+        Route::post('/etiqueta/registrar', 'EtiquetaController@store');
+        Route::put('/etiqueta/actualizar', 'EtiquetaController@update');
+        Route::put('/etiqueta/borrar', 'EtiquetaController@borrar');
         /*++++++++++++++++++++++++++++++++++++++*/
 
     });

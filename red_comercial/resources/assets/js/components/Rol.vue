@@ -15,7 +15,7 @@
             <!--CONTENIDO-->
             <div class="section-body">
                 <h2 class="section-title">Visualización de roles.</h2>
-                <p class="section-lead">Módulo disponible solo para adminsitradores.</p>
+                <p class="section-lead">Módulo disponible solo para administradores.</p>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                          <div class="card">

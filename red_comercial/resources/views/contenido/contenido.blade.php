@@ -16,10 +16,10 @@
                 <rol></rol>
             </template>
             <template v-if="menu==4">
-                <h2>Contenido 4</h2>
+                <etiquetas></etiquetas>
             </template>
             <template v-if="menu==5">
-                <h2>Contenido 5</h2>
+                <galeria></galeria>
             </template>
             <template v-if="menu==99">
                 <perfil></perfil>

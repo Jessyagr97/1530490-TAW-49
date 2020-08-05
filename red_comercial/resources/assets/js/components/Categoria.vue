@@ -4,16 +4,21 @@
             <!--HEADER DE MODULO-->
             <div class="section-header">
                 <h1>Categorías</h1>
+                <div class="section-header-breadcrumb">
+                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                    <div class="breadcrumb-item"><a href="#">Productos</a></div>
+                    <div class="breadcrumb-item">Categorías</div>
+                </div>
             </div>
             <!--FIN HEADER DE MODULO-->
 
             <!--CONTENIDO-->
             <div class="section-body">
                 <h2 class="section-title">Administración de categorías</h2>
-                <p class="section-lead">Módulo disponible solo para adminsitradores. Agregue y edite categorías.</p>
+                <p class="section-lead">Módulo disponible solo para administradores. Agregue y edite categorías.</p>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
-                         <div class="card">
+                        <div class="card">
                             <div class="card-header">
                                 <h4>Tabla categorías</h4>
                                 <div class="card-header-form">
@@ -76,7 +81,7 @@
                                 </div>
                             </div>
                             <!--PAGINACION-->
-                            <div class="card-footer text-right">
+                            <div class="card-footer bg-whitesmoke text-right">
                                 <nav class="d-inline-block">
                                     <ul class="pagination mb-0">
                                         <li class="page-item " v-if="pagination.current_page > 1">
@@ -245,7 +250,7 @@
                 }).then(function (response) {
                     me.cerrarModal(); //Cerrar modal
                     me.listarCategoria(1, '', 'nombre_categoria');   //Volver a enlistar los registros
-                    toastr["success"]("Registro guardado con éxito!.");
+                    toastr["success"]("Registro guardado con éxito.");
                 })
                 .catch(function (error) {
                     // handle error
@@ -268,7 +273,7 @@
                 }).then(function (response) {
                     me.cerrarModal(); //Cerrar modal
                     me.listarCategoria(1, '', 'nombre_categoria');   //Volver a enlistar los registros
-                    toastr["success"]("Registro actualizado con éxito!.");
+                    toastr["success"]("¡Registro actualizado con éxito.");
                 })
                 .catch(function (error) {
                     // handle error
@@ -288,7 +293,7 @@
 
                     swalWithBootstrapButtons.fire({
                     title: 'Borrado Lógico',
-                    text: "La categoría será desactivada y no estará disponible para ningun usuario, así cómo los productos relacionados a esta categoría, Desea continuar?.",
+                    text: "La categoría será desactivada y no estará disponible para ningun usuario, así como los productos relacionados a esta categoría, ¿Desea continuar?.",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Si, deseo continuar.',
@@ -308,8 +313,8 @@
                             console.log(error);
                         });
                         swalWithBootstrapButtons.fire(
-                        'Dasactivada!',
-                        'La categoría ah sido desactivada.',
+                        'Dasactivada',
+                        'La categoría ha sido desactivada.',
                         'success'
                         )
                     } else if (
@@ -333,7 +338,7 @@
 
                     swalWithBootstrapButtons.fire({
                     title: 'Acivación de categoría',
-                    text: "La categoría será reactivada y volverá a estar disponible para los usuarios, Desea continuar?",
+                    text: "La categoría será reactivada y volverá a estar disponible para los usuarios, ¿Desea continuar?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Si, deseo continuar.',
@@ -353,8 +358,8 @@
                             console.log(error);
                         });
                         swalWithBootstrapButtons.fire(
-                        'Activada!',
-                        'La categoría ah sido reactivada.',
+                        'Activada',
+                        'La categoría ha sido reactivada.',
                         'success'
                         )
                     } else if (
@@ -378,7 +383,7 @@
 
                     swalWithBootstrapButtons.fire({
                     title: 'Borrado permanente',
-                    text: "El registro será eliminado de manera permanente, así como los productos relacionados a este, Desea continuar?",
+                    text: "El registro será eliminado de manera permanente, así como los productos relacionados a este, ¿Desea continuar?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Si, deseo continuar.',
@@ -398,8 +403,8 @@
                             console.log(error);
                         });
                         swalWithBootstrapButtons.fire(
-                        'Eliminado!',
-                        'El registro se ah eliminado de manera permanente.',
+                        'Eliminado',
+                        'El registro se ha eliminado de manera permanente.',
                         'success'
                         )
                     } else if (

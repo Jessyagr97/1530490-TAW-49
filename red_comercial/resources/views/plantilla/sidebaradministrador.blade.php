@@ -1,10 +1,10 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-        <a href="index.html">Stisla</a>
-        </div>
+            <?php echo '<img src="'.Auth::user()->image_profile.'" alt="profile img" width="52px" class="rounded-circle profile-widget-picture">' ?>
+         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-        <a href="index.html">St</a>
+            <?php echo '<img src="'.Auth::user()->image_profile.'" alt="profile img" width="52px" class="rounded-circle profile-widget-picture">' ?>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
@@ -25,6 +25,14 @@
                 <ul class="dropdown-menu">
                     <li @click="menu=2"><a class="nav-link" href="#">Listado de usuarios</a></li>
                     <li @click="menu=3"><a class="nav-link" href="#">Roles</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link has-dropdown"><i class="fas fa-images"></i> <span>Medios</span></a>
+                <ul class="dropdown-menu">
+                    <li @click="menu=5"><a class="nav-link" href="#">Galería</a></li>
+                    <li ><a class="nav-link" href="#">Documentos</a></li>
                 </ul>
             </li>
         

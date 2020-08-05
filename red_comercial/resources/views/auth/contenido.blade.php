@@ -19,7 +19,7 @@
 <body>
   <div>
     <section class="section">
-      <div class="container mt-5">
+      <div class="container">
         @yield('login')
       </div>
     </section>

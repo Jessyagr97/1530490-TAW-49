@@ -20,6 +20,8 @@ Vue.component('rol', require('./components/Rol.vue').default);
 Vue.component('categoria', require('./components/Categoria.vue').default);
 Vue.component('user', require('./components/User.vue').default);
 Vue.component('perfil', require('./components/Perfil.vue').default);
+Vue.component('etiquetas', require('./components/Etiquetas.vue').default);
+Vue.component('galeria', require('./components/Galeria.vue').default);
 
 const app = new Vue({
     el: '#app',

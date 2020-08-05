@@ -15,7 +15,7 @@
             <!--CONTENIDO-->
             <div class="section-body">
                 <h2 class="section-title">Administración de usuarios</h2>
-                <p class="section-lead">Módulo disponible solo para adminsitradores. Agregue y edite usuarios.</p>
+                <p class="section-lead">Módulo disponible solo para administradores. Agregue y edite usuarios.</p>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                          <div class="card">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <!--PAGINACION-->
-                            <div class="card-footer text-right">
+                            <div class="card-footer bg-whitesmoke text-right">
                                 <nav class="d-inline-block">
                                     <ul class="pagination mb-0">
                                         <li class="page-item " v-if="pagination.current_page > 1">
@@ -312,7 +312,7 @@
                 }).then(function (response) {
                     me.cerrarModal(); //Cerrar modal
                     me.listarUsuario(1, '', 'nombre');   //Volver a enlistar los registros
-                    toastr["success"]("Registro guardado con éxito!.");
+                    toastr["success"]("Registro guardado con éxito.");
                 })
                 .catch(function (error) {
                     // handle error
@@ -340,7 +340,7 @@
                 }).then(function (response) {
                     me.cerrarModal(); //Cerrar modal
                     me.listarUsuario(1, '', 'nombre');   //Volver a enlistar los registros
-                    toastr["success"]("Registro actualizado con éxito!.");
+                    toastr["success"]("Registro actualizado con éxito.");
                 })
                 .catch(function (error) {
                     // handle error
@@ -360,7 +360,7 @@
 
                     swalWithBootstrapButtons.fire({
                     title: 'Borrado Lógico',
-                    text: "El usuario será desactivado y no estará disponible , así cómo los productos relacionados a este usuario, Desea continuar?.",
+                    text: "El usuario será desactivado y no estará disponible, así como los productos relacionados a este usuario, ¿Desea continuar?.",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Si, deseo continuar.',
@@ -380,8 +380,8 @@
                             console.log(error);
                         });
                         swalWithBootstrapButtons.fire(
-                        'Dasactivado!',
-                        'El usuario ah sido desactivada.',
+                        'Dasactivado',
+                        'El usuario ha sido desactivada.',
                         'success'
                         )
                     } else if (
@@ -405,7 +405,7 @@
 
                     swalWithBootstrapButtons.fire({
                     title: 'Acivación de usuario',
-                    text: "El usuario será reactivada y volverá a estar disponible su sesión, así como sus registros, Desea continuar?",
+                    text: "El usuario será reactivada y volverá a estar disponible su sesión, así como sus registros, ¿Desea continuar?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Si, deseo continuar.',
@@ -425,8 +425,8 @@
                             console.log(error);
                         });
                         swalWithBootstrapButtons.fire(
-                        'Activado!',
-                        'EL usuario ah sido reactivado.',
+                        'Activado',
+                        'EL usuario ha sido reactivado.',
                         'success'
                         )
                     } else if (
@@ -450,7 +450,7 @@
 
                     swalWithBootstrapButtons.fire({
                     title: 'Borrado permanente',
-                    text: "El registro será eliminado de manera permanente, así como los registros relacionados a este, Desea continuar?",
+                    text: "El registro será eliminado de manera permanente, así como los registros relacionados a este, ¿Desea continuar?",
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Si, deseo continuar.',
@@ -470,8 +470,8 @@
                             console.log(error);
                         });
                         swalWithBootstrapButtons.fire(
-                        'Eliminado!',
-                        'El registro se ah eliminado de manera permanente.',
+                        'Eliminado',
+                        'El registro se ha eliminado de manera permanente.',
                         'success'
                         )
                     } else if (

@@ -221,7 +221,7 @@
             <div class="dropdown-menu dropdown-menu-right">
                 <div class="dropdown-title">Logged in 5 min ago</div>
                 <a @click="menu=99" href="#" class="dropdown-item has-icon">
-                <i class="far fa-user"></i> Perfil
+                <i class="far fa-user"></i> Perfíl
                 </a>
                 <a href="{{ url('/shop') }}" class="dropdown-item has-icon">
                 <i class="fas fa-bolt"></i> Ver mi tienda

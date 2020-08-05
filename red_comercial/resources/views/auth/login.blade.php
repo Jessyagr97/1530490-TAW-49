@@ -9,7 +9,8 @@
 
         <div class="card card-primary">
             <div class="card-header"><h4>Login</h4></div>
-
+            {!!$errors->first('email','<div class="alert alert-danger">:message</div>')!!}<!--Mostrar Mensaje-->
+                   
             <div class="card-body">
             <form class="form-horizontal was-validated" method="POST" action="{{ route('login') }}">
                 <!--Proteccion de solicitudes de falsificacion -->
@@ -19,7 +20,6 @@
                     <div class="form-group">
                         <label for="email">Correo electrónico</label>
                         <input id="email" value="{{old('email')}}" type="email" class="form-control" name="email" required>
-                        {!!$errors->first('email','<span class="invalid-feedback">:message</span>')!!}<!--Mostrar Mensaje-->
                     </div>
                 </div>
 
@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <input id="password" type="password" class="form-control" name="password"required>
-                        {!!$errors->first('password','<span class="invalid-feedback">:message</span>')!!}
+                        {!!$errors->first('password','<div class="color bg-danger text-white"><div>:message</div></div>')!!}
                     </div>
                 </div>
 
@@ -44,24 +44,6 @@
                     </button>
                 </div>
             </form>
-            <div class="text-center mt-4 mb-3">
-                <div class="text-job text-muted">Login With Social</div>
-            </div>
-            <div class="row sm-gutters">
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-facebook">
-                        <span class="fab fa-facebook"></span> Facebook
-                    </a>
-                </div>
-                <div class="col-6">
-                    <a class="btn btn-block btn-social btn-twitter">
-                        <span class="fab fa-twitter"></span> Twitter
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="mt-5 text-muted text-center">
-            Don't have an account? <a href="auth-register.html">Create One</a>
         </div>
         <div class="simple-footer">
             Copyright &copy; Stisla 2018
