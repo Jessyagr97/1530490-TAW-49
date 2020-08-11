@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Cartera;
+use App\Galeria;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\File;
@@ -62,6 +63,18 @@ class UserController extends Controller
        Storage::makeDirectory($path);
        /*==============================*/
 
+       /*SUBIR IMAGEN*/
+        if ($request->hasFile('image_profile')) {
+            $file = $request->file('image_profile');
+            $file_name = $file->getClientOriginalName();
+            $file_path = 'public/'.$request->email.'/img/';
+            $file_path_s = '/storage/'.$request->email.'/img/';
+            $file->storeAs($file_path, $file_name);
+        } else {
+            return response()->json(['error'=>'El archivo no existe.']);
+        }
+        /*==============================*/
+
         try{
             //REGISTRO EN LA TABLA USERS
             DB::beginTransaction();
@@ -72,10 +85,15 @@ class UserController extends Controller
             $user->telefono = $request->telefono;
             $user->email = $request->email;
             $user->password = bcrypt($request->password); //ENCRIPTADA
-            $user->image_profile = '';
+            $user->image_profile = $file_path_s.$file_name;
             $user->condicion = '1';
             $user->idrol = $request->idrol;
             $user->save();
+
+            $galeria = new Galeria();
+            $galeria->ruta = $file_path_s.$file_name;
+            $galeria->iduser = $user->id;
+            $galeria->save();
 
             $cartera = new Cartera();
             $cartera->iduser = $user->id;
@@ -139,6 +157,8 @@ class UserController extends Controller
         
         /*try {
             DB::beginTransaction();*/
+
+            $files = Storage::allFiles('app/public/'.$request->email);
 
             $user = User::findOrFail($request->id);
             $user->delete();

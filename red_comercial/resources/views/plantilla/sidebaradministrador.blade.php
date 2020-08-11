@@ -1,10 +1,10 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <?php echo '<img src="'.Auth::user()->image_profile.'" alt="profile img" width="52px" class="rounded-circle profile-widget-picture">' ?>
+            <?php echo '<img src="'.Auth::user()->image_profile.'" alt="Escoge una imagen" width="52px" class="rounded-circle profile-widget-picture">' ?>
          </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <?php echo '<img src="'.Auth::user()->image_profile.'" alt="profile img" width="52px" class="rounded-circle profile-widget-picture">' ?>
+            <?php echo '<img src="'.Auth::user()->image_profile.'" alt="Escoge una imagen" width="52px" class="rounded-circle profile-widget-picture">' ?>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
@@ -18,6 +18,8 @@
                 <ul class="dropdown-menu">
                     <li @click="menu=1"><a class="nav-link" href="#">Categorías</a></li>
                     <li @click="menu=4"><a class="nav-link" href="#">Etiquetas</a></li>
+                    <li @click="menu=6"><a class="nav-link" href="#">Listado de servicios</a></li>
+                    <li @click="menu=7"><a class="nav-link" href="#">Listado de productos</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown">
@@ -36,17 +38,7 @@
                 </ul>
             </li>
         
-            <li class="menu-header">Usuarios</li>
-            <li class="nav-item dropdown">
-            <a href="#" class="nav-link has-dropdown"><i class="far fa-user"></i> <span>Auth</span></a>
-            <ul class="dropdown-menu">
-                <li><a href="#">Forgot Password</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a class="beep beep-sidebar" href="#">Login 2</a></li>
-                <li><a href="#">Register</a></li>
-                <li><a href="#">Reset Password</a></li>
-            </ul>
-            </li>
+            
             <li><a class="nav-link" href="#"><i class="fas fa-pencil-ruler"></i> <span>Credits</span></a></li>
         </ul>
 

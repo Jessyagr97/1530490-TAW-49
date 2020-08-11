@@ -21,6 +21,9 @@
             <template v-if="menu==5">
                 <galeria></galeria>
             </template>
+            <template v-if="menu==7">
+                <producto></producto>
+            </template>
             <template v-if="menu==99">
                 <perfil></perfil>
             </template>

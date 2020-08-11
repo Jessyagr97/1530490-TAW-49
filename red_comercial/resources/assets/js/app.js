@@ -22,6 +22,7 @@ Vue.component('user', require('./components/User.vue').default);
 Vue.component('perfil', require('./components/Perfil.vue').default);
 Vue.component('etiquetas', require('./components/Etiquetas.vue').default);
 Vue.component('galeria', require('./components/Galeria.vue').default);
+Vue.component('producto', require('./components/Producto.vue').default);
 
 const app = new Vue({
     el: '#app',

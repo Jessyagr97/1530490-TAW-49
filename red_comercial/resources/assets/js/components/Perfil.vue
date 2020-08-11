@@ -5,7 +5,7 @@
 
             <!--HEADER DE MODULO-->
             <div class="section-header">
-                <h1>Pérfil del usuario</h1>
+                <h1>Perfil del usuario</h1>
             </div>
             <!--FIN HEADER DE MODULO-->
 
@@ -18,8 +18,9 @@
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                         <div class="card profile-widget">
+                            <a @click="editarImagen();" href="#"><i class="fas fa-pencil-alt"></i></a>
                             <div class="profile-widget-header" v-for="usuario in arrayUsuario" :key="usuario.id">
-                                <img alt="profile image" v-bind:src="usuario.image_profile" class="rounded-circle profile-widget-picture">
+                                <img alt="Escoge una imagen" v-bind:src="rutaImg" class="rounded-circle profile-widget-picture">  
                                 <div class="profile-widget-items" >
                                     <div class="profile-widget-item">
                                         <div class="profile-widget-item-label">Nombre</div>
@@ -107,7 +108,7 @@
                                             </div>
 
                                             <div class="buttons">
-                                                <a  @click="actualizarUsuario();" style="text-align: right;" href="#" class="btn btn-icon icon-left btn-success"><i class="fas fa-check"></i> Guardar</a>
+                                                <a  @click="actualizarUsuario(usuario.image_profile);" style="text-align: right;" href="#" class="btn btn-icon icon-left btn-success"><i class="fas fa-check"></i> Guardar</a>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="profile4" role="tabpanel" aria-labelledby="profile-tab4">
@@ -184,6 +185,58 @@
 
         </section>
 
+        <!--MODAL IMAGENES-->
+        <div class="modal fade" tabindex="-1" :class="{'mostrar' : modal}" role="dialog" >
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Mi galería</h5>
+                        <button @click="cerrarImagenes();" type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!--CONTENIDO MODAL-->
+                    <div class="modal-body">
+                        <div v-for="imagen in arrayImagenes" :key="imagen.id" >
+                            <center><a href="#"><img v-bind:src="imagen.ruta" width="65px" ></a>&nbsp;<a @click="actualizarUsuario(imagen.ruta);"  href="#" class="btn btn-icon icon-left btn-success"><i class="fas fa-check"></i></a>
+                       </center><br>
+                        </div>
+
+                        <div v-show="errorCategoria" class="form-group div-error">
+                            <div class="text-error">
+                                <div v-for="error in errorMostrarMsjCategoria" :key="error" v-text="error"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--FIN CONTENIDO-->
+                    <!--PAGINACION-->
+                    <div class="card-footer bg-whitesmoke text-right">
+                        <div class="form-group">
+                            <center><label for="password">Ingrese su contraseña</label></center>
+                            <input v-model="password" type="password" class="form-control">
+                        </div>
+                        <br>    
+                        <nav class="d-inline-block">
+                            <ul class="pagination mb-0">
+                                <li class="page-item " v-if="pagination.current_page > 1">
+                                    <a @click.prevent="cambiarPagina(pagination.current_page - 1, buscar, criterio);" class="page-link" href="#" tabindex="-1"><i class="fas fa-chevron-left"></i></a>
+                                </li>
+                                <li class="page-item " v-for="page in pagesNumber" :key="page" :class="[page == isActived ? 'active' : '']">
+                                    <a class="page-link" href="#" @click.prevent="cambiarPagina(page, buscar, criterio);" v-text="page"> <span class="sr-only">(current)</span></a>
+                                </li>
+                                <li class="page-item" v-if="pagination.current_page < pagination.last_page">
+                                    <a @click.prevent="cambiarPagina(pagination.current_page + 1, buscar, criterio);" class="page-link" href="#"><i class="fas fa-chevron-right"></i></a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                    <!--FIN PAGINACION-->
+                </div>
+            </div>
+        </div>
+        <!--FIN MODAL-->
+
+
         <!--FOOTER-->
         <footer class="main-footer">
             <div class="footer-left">
@@ -198,8 +251,10 @@
     export default {
         data (){
             return {
-                idrol: 0,
+                arrayImagenes: [],
                 rutaImg: '',
+
+                idrol: 0,
                 usuario_id: 0,
                 nombre : '',
                 apellido_p : '',
@@ -214,6 +269,18 @@
                 tipoAccion : 0,
                 errorCategoria: 0,
                 errorMostrarMsjCategoria : [],
+
+                pagination : {
+                    'total' : 0,
+                    'current_page' : 0,
+                    'per_page' : 0,
+                    'last_page' : 0,
+                    'from' : 0,
+                    'to' : 0
+                },
+                offset : 3,
+                criterio : '',
+                buscar : ''
 
             }
         },
@@ -247,13 +314,25 @@
         },
         methods : {
             /*LISTAR DATOS*/
-            listarUsuario (){
+            listarUsuario (page, buscar, criterio){
                 let me = this;
                 var url = '/perfil';
                 axios.get(url).then(function (response) {
                     var respuesta = response.data;
                     me.arrayUsuario = respuesta.perfil.data; //Almacenar contenido del objeto response al array
-                    me.pagination = respuesta.pagination;
+                    me.rutaImg = me.arrayUsuario[0].image_profile;
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                });
+
+                //ENLISTAR IMAGENES
+                var urli = '/galeria?page='+page+'&buscar='+buscar+'&criterio='+criterio;
+                axios.get(urli).then(function (response) {
+                    var respuestaI = response.data;
+                    me.arrayImagenes = respuestaI.galeria.data; //Almacenar contenido del objeto response al array
+                    me.pagination = respuestaI.pagination;
                 })
                 .catch(function (error) {
                     // handle error
@@ -262,13 +341,15 @@
             },
 
             //EDITAR UN REGISTRO
-            actualizarUsuario(){
+            actualizarUsuario(ruta){
                 //Validacion de campos antes de realizar el registro
                 if (this.validarUsuario()){
                     return;
                 }
 
                 let me = this;
+                
+                me.rutaImg = ruta;
                 axios.put('/usuario/actualizar', {
                     'nombre' : this.arrayUsuario[0].nombre,
                     'apellido_p' : this.arrayUsuario[0].apellido_p,
@@ -276,12 +357,12 @@
                     'telefono' : this.arrayUsuario[0].telefono,
                     'email' : this.arrayUsuario[0].email,
                     'password' : this.password,
+                    'image_profile': ruta,
                     'idrol' : this.arrayUsuario[0].idrol,
                     'id' : this.arrayUsuario[0].id
                 }).then(function (response) {
-                    
-                    me.password = '';
-                    me.listarUsuario();   //Volver a enlistar los registros
+                    me.cerrarImagenes();
+                    me.listarUsuario(page, buscar, criterio);   //Volver a enlistar los registros
                     toastr["success"]("Perfil actualizado con éxito.");
                 })
                 .catch(function (error) {
@@ -291,6 +372,15 @@
                 //toastr["success"]("Perfil actualizado con éxito!.");
             },
             
+            editarImagen(){
+                this.modal = 1;
+            },
+
+            cerrarImagenes(){
+                this.modal = 0;
+                this.password = '';
+            },
+
             /*VALIDACIONES DE CAMPOS*/
             validarUsuario(){
                 this.errorCategoria = 0;
@@ -309,7 +399,7 @@
             }
         },
         mounted() {
-            this.listarUsuario();
+            this.listarUsuario(this.page, this.buscar, this.criterio);
         }
     }
 </script>

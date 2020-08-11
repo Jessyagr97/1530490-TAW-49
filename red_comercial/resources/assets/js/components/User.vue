@@ -75,7 +75,7 @@
                                                         <template v-else>
                                                             <a @click="activarUsuario(categoria.id);" href="#" class="btn btn-icon btn-dark" data-toggle="tooltip" data-placement="top" title="Activar"><i class="fas fa-power-off"></i></a>
                                                         </template>
-                                                        <a @click="borrarUsuario(categoria.id);" href="#" class="btn btn-icon btn-danger" data-toggle="tooltip" data-placement="top" title="Borrado permanente"><i class="far fa-trash-alt"></i></a>
+                                                        <a @click="borrarUsuario(categoria.id, categoria.email);" href="#" class="btn btn-icon btn-danger" data-toggle="tooltip" data-placement="top" title="Borrado permanente"><i class="far fa-trash-alt"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -134,6 +134,14 @@
                                 <label>Apellido Materno *</label>
                                 <input v-model="apellido_m" class="form-control">
                             </div>
+                        </div>
+                        <div v-if="tipoAccion==1" class="form-group">
+                            <label>Imagen de perfil *</label>
+                            <input @change="previewImage" type="file" class="form-control">
+                        </div>
+                        <div v-if="tipoAccion==2" class="form-group">
+                            <label>Imagen de perfil *</label>
+                            <p>Solo el usuario puede cambiar su imagen de perfil.</p>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6 col-lg-6">
@@ -202,6 +210,7 @@
                 telefono : '',
                 email : '',
                 password : '',
+                image_profile: '',
                 arrayUsuario : [],
                 arrayRol : [],
                 modal : 0,
@@ -254,6 +263,14 @@
             }
         },
         methods : {
+
+            /*VISIUALIZAR IMAGEN ANTES DE SUBIR*/
+            previewImage(e){
+                const file = e.target.files[0];
+                this.image_profile = file;
+                console.log(this.image_profile);
+            },
+
             /*LISTAR DATOS*/
             listarUsuario (page, buscar, criterio){
                 let me = this;
@@ -301,15 +318,18 @@
                 }
 
                 let me = this;
-                axios.post('/usuario/registrar', {
-                    'nombre' : this.nombre,
-                    'apellido_p' : this.apellido_p,
-                    'apellido_m' : this.apellido_m,
-                    'telefono' : this.telefono,
-                    'email' : this.email,
-                    'password' : this.password,
-                    'idrol' : this.idrol
-                }).then(function (response) {
+
+                let formData = new FormData();
+                formData.append('nombre', this.nombre);
+                formData.append('apellido_p', this.apellido_p);
+                formData.append('apellido_m', this.apellido_m);
+                formData.append('telefono', this.telefono);
+                formData.append('email', this.email);
+                formData.append('password', this.password);
+                formData.append('image_profile', this.image_profile);
+                formData.append('idrol', this.idrol);
+
+                axios.post('/usuario/registrar', formData).then(function (response) {
                     me.cerrarModal(); //Cerrar modal
                     me.listarUsuario(1, '', 'nombre');   //Volver a enlistar los registros
                     toastr["success"]("Registro guardado con éxito.");
@@ -335,6 +355,7 @@
                     'telefono' : this.telefono,
                     'email' : this.email,
                     'password' : this.password,
+                    'image_profile': this.image_profile,
                     'idrol' : this.idrol,
                     'id' : this.usuario_id
                 }).then(function (response) {
@@ -439,7 +460,7 @@
             },
 
             /*BORRADO PERMAMENTE*/
-            borrarUsuario(id){
+            borrarUsuario(id, email){
                 const swalWithBootstrapButtons = Swal.mixin({
                     customClass: {
                         confirmButton: 'btn btn-success',
@@ -460,6 +481,7 @@
                     if (result.value) {
                         let me = this;
                         axios.put('/usuario/borrar', {
+                            'email' : email,
                             'id' : id
                         }).then(function (response) {
                             me.cerrarModal(); //Cerrar modal
@@ -494,6 +516,7 @@
                 if(!this.telefono) this.errorMostrarMsjCategoria.push("Ingrese su teléfono.");
                 if(!this.email) this.errorMostrarMsjCategoria.push("Ingrese su correo eletrónico.");
                 if(!this.password) this.errorMostrarMsjCategoria.push("Ingrese una contraseña.");
+                if(!this.image_profile) this.errorMostrarMsjCategoria.push("Seleccione una imagen.");
                 if(this.idrol==0) this.errorMostrarMsjCategoria.push("Seleccione un rol para el usuario.");
             
                 if(this.errorMostrarMsjCategoria.length) this.errorCategoria = 1;
@@ -511,6 +534,7 @@
                 this.telefono = '';
                 this.email = '';
                 this.password = '';
+                this.image_profile = '';
                 this.idrol = 0;
                 this.tipoAccion = 0;
             },
@@ -530,6 +554,7 @@
                                 this.telefono = "";
                                 this.email = "";
                                 this.password = "";
+                                this.image_profile = "";
                                 this.idrol = 0;
                                 this.tipoAccion = 1;
                                 break;
@@ -544,6 +569,7 @@
                                 this.telefono = data["telefono"];
                                 this.email = data["email"];
                                 this.password = data["password"];
+                                this.image_profile = data["image_profile"];
                                 this.idrol = data["idrol"];
                                 this.tipoAccion = 2;
                                 break;

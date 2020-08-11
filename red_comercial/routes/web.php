@@ -72,6 +72,14 @@ Route::group(['middleware' => ['auth']], function () {
         Route::post('/etiqueta/registrar', 'EtiquetaController@store');
         Route::put('/etiqueta/actualizar', 'EtiquetaController@update');
         Route::put('/etiqueta/borrar', 'EtiquetaController@borrar');
+
+        /*GALERÍA*/
+        Route::get('/galeria', 'GaleriaController@index');
+        Route::post('/galeria/subir', 'GaleriaController@store');
+        Route::put('/galeria/borrar', 'GaleriaController@borrar');
+
+        /*PRODUCTOS*/
+        Route::get('/producto', 'ProductoController@index');
         /*++++++++++++++++++++++++++++++++++++++*/
 
     });
