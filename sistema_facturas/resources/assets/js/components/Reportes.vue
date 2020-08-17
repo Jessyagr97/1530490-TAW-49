@@ -13,13 +13,13 @@
 
             <!--CONTENIDO-->
             <div class="section-body">
-                <h2 class="section-title">Administración de facturas</h2>
+                <h2 class="section-title">Administración de reportes</h2>
                 <p class="section-lead">Los reportes se generan automaticamente.</p>
                 <div class="row">
                     <div class="col-12 col-md-12 col-lg-12">
                          <div class="card">
                             <div class="card-header">
-                                <h4>Tabla facturas</h4>
+                                <h4>Tabla reportes</h4>
                                 <div class="card-header-form">
                                     <div class="input-group">
                                        <strong>buscar por: </strong>&nbsp;&nbsp;
