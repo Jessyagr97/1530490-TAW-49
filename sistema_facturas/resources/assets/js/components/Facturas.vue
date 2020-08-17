@@ -130,8 +130,8 @@
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12 col-sm-12 col-lg-12">
-                                <label>Folio (Se genera automáticamente) *</label>
-                                <input v-model="folio" class="form-control" disabled>
+                                <label>Folio *</label>
+                                <input v-model="folio" class="form-control">
                             </div>
                         </div>
                         <div class="form-row">
@@ -277,10 +277,6 @@
                     // handle error
                     console.log(error);
                 });
-
-                var f = new Date();
-                //document.write(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
-                me.folio = f.getFullYear()+'-'+(f.getMonth() +1)+f.getDate()+'-'+(me.pagination.total+1);
             },
 
             /*SELECCIONAR UN ROL*/
